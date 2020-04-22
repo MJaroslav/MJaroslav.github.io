@@ -1,0 +1,51 @@
+body {
+    background: url("../media/background.jpg") fixed no-repeat;
+    background-size: cover;
+	margin: 0;
+	color: white;
+	font-family: Arial;
+}
+
+.header {
+	background: rgba(0, 0, 0, .8);
+	font-size: 300%;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.layout {
+	margin: 0 auto;
+	width: 900px;
+}
+
+.link {
+	width: 100%;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	font-size: 150%;
+	background: rgba(0, 0, 0, .5);
+	transition: 0.5s;
+}
+
+.link:hover, .link:active {
+	background: rgba(170, 170, 170, .5);
+	transition: 0.5s;
+	letter-spacing: 10px;
+}
+
+a, .link {
+	color: white;
+	text-decoration: none;
+	transition: 0.5s;
+	font-weight: bold;
+}
+
+@media (max-width: 930px) {
+	.layout {
+        width: 100%;
+    }
+}
