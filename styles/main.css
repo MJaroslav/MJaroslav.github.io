@@ -1,35 +1,35 @@
 body {
-	background: url("../media/background.jpg") no-repeat;
-	background-size: cover;
-	color: var(--white);
+  background: url("../media/background.jpg") no-repeat;
+  background-size: cover;
+  color: var(--white);
 }
 
 #layout {
-	background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, .6);
 }
 
 hr {
-	border-top-color: var(--white);
+  border-top-color: var(--white);
 }
 
 a {
-	color:  var(--white);
+  color: var(--white);
 }
 
 #header {
-	padding-top: 15vh;
-	padding-bottom: 15vh;
-	min-height: 100vh;
+  padding-top: 15vh;
+  padding-bottom: 15vh;
+  min-height: 100vh;
 }
 
 .cursor-help {
-	cursor: help;
+  cursor: help;
 }
 
 .text-primary {
-	color: var(--white) !important;
+  color: var(--white) !important;
 }
 
 .text-secondary {
-	color: var(--orange) !important;
+  color: var(--orange) !important;
 }
