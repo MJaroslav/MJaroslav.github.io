@@ -33,3 +33,7 @@ a {
 .text-secondary {
   color: var(--orange) !important;
 }
+
+a:hover, .music-entry-image:hover {
+  color: var(--orange);
+}
