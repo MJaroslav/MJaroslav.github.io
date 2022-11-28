@@ -31,3 +31,7 @@
 .icon-custom-shikimori:before {
   content: "\e901";
 }
+
+.icon-custom-lastfm:before {
+  content: "\e902";
+}

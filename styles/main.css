@@ -16,7 +16,7 @@ a {
   color: var(--white);
 }
 
-#header {
+header {
   padding-top: 15vh;
   padding-bottom: 15vh;
   min-height: 100vh;
@@ -36,4 +36,8 @@ a {
 
 a:hover, .music-entry-image:hover {
   color: var(--orange);
+}
+
+.profile-entry:hover {
+  text-decoration: none;
 }

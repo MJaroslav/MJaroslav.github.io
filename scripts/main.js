@@ -1,34 +1,24 @@
 onLoad()
 
 function onLoad() {
-    createProfiles()
+    createProfilesAlt()
     createMusic()
     enableExtraBootstrapTooltips()
+    replaceYearToCurrent()
 }
 
-function createProfiles() {
+function createProfilesAlt() {
     $.get("data/profiles.json", function (json) {
         json.reverse().forEach(data => {
-            var contactRoot = document.createElement("div")
-            contactRoot.className = "col profile-entry"
-            var label = document.createElement("h5")
-            label.className = "profile-entry-label d-inline-flex pt-2 pl-3"
-            var icon = document.createElement("i")
-            icon.className = data["icon"] + " mr-2"
-            label.appendChild(icon)
-            label.innerHTML += data["name"]
-            if (data.hasOwnProperty("tooltip")) {
-                label.setAttribute("data-toggle", "tooltip")
-                label.setAttribute("data-html", "true")
-                label.title = data["tooltip"]
-                $(label).tooltip() // Fuck this fucking JS
-            }
-            if (data.hasOwnProperty("url")) {
-                var link = document.createElement("a")
-                link.href = data["url"]
-                link.appendChild(label)
-                contactRoot.appendChild(link)
-            } else contactRoot.appendChild(label)
+            var contactRoot = document.createElement("a");
+            contactRoot.href = data["url"]
+            contactRoot.className = "profile-entry display-4 " + data["icon"] + " mr-2"
+            var tooltip = data["name"]
+            if (data.hasOwnProperty("tooltip")) tooltip += "<br><br>" + data["tooltip"]
+            contactRoot.setAttribute("data-toggle", "tooltip")
+            contactRoot.setAttribute("data-html", "true")
+            contactRoot.title = tooltip
+            $(contactRoot).tooltip() // Fuck this fucking JS
             $(".profiles").prepend(contactRoot)
         })
     }, "json")
@@ -60,4 +50,8 @@ function enableExtraBootstrapTooltips() {
     $(function () {
         $('[data-toggle="tooltip"]').tooltip()
     })
+}
+
+function replaceYearToCurrent() {
+    document.getElementById("year").innerHTML = new Date().getFullYear();
 }

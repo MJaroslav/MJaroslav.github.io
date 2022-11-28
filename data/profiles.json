@@ -49,5 +49,10 @@
     "name": "@MJaroslav",
     "url": "https://youtube.com/@MJaroslav",
     "icon": "bi bi-youtube"
+  },
+  {
+    "name": "HirokiNameless",
+    "url": "https://www.last.fm/user/HirokiNameless",
+    "icon": "icon-custom-lastfm"
   }
 ]
