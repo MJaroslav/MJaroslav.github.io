@@ -1,0 +1,59 @@
+[
+  {
+    "name": "GitHub",
+    "url": "https://github.com/MJaroslav",
+    "icon": "bi bi-github"
+  },
+  {
+    "name": "Discord",
+    "icon": "bi bi-discord",
+    "url": "https://discord.com/users/122777753899499520"
+  },
+  {
+    "name": "Steam",
+    "url": "https://steamcommunity.com/id/MJaroslav",
+    "icon": "bi bi-steam"
+  },
+  {
+    "name": "VK",
+    "url": "https://vk.com/MJaroslav",
+    "icon": "icon-vk"
+  },
+  {
+    "name": "Instagram",
+    "url": "https://www.instagram.com/Nameless_Hiroki",
+    "icon": "bi bi-instagram"
+  },
+  {
+    "name": "Twitter",
+    "url": "https://twitter.com/MJaroslav",
+    "icon": "bi bi-twitter"
+  },
+  {
+    "name": "Spotify",
+    "url": "https://open.spotify.com/user/nfkflye3lcqs57rm46i2hoqmn",
+    "icon": "bi bi-spotify"
+  },
+  {
+    "name": "Shikimori",
+    "url": "https://shikimori.one/MJaroslav",
+    "icon": "icon-custom-shikimori"
+  },
+  {
+    "name": "MJaroslav",
+    "url": "MyAnimeList",
+    "icon": "icon-custom-myanimelist",
+    "tooltip": "I rarely update this profile as I prefer Shikimori"
+  },
+  {
+    "name": "YouTube",
+    "url": "https://youtube.com/@MJaroslav",
+    "icon": "bi bi-youtube"
+  },
+  {
+    "name": "LastFM",
+    "url": "https://www.last.fm/user/HirokiNameless",
+    "icon": "icon-custom-lastfm",
+    "tooltip": "Likes from last.fm not actual, see \"favorite songs\" on Spotify"
+  }
+]
