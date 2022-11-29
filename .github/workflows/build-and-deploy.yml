@@ -1,0 +1,26 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - "master"
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+      - name: Install python ⬇️
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+      - name: Install builder dependencies ⬇️
+        run: |
+          touch requirements.txt
+          pip install -r requirements.txt
+      - name: Build site ⚙️
+        run: python3 build.py
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: _site
