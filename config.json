@@ -7,7 +7,8 @@
   ],
   "index": "pattern.html",
   "replace": {
-    "@COUNTER@": "!debug",
+    "@COUNTER_ENABLE@": "!debug",
+    "@COUNTER_ID@": "mjaroslav.github.io",
     "@NAME@": "Yaroslav Novitsky",
     "@NICK@": "MJaroslav",
     "@AVATAR@": "https://github.com/MJaroslav.png"
