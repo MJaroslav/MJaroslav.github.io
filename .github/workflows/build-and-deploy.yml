@@ -18,7 +18,7 @@ jobs:
           touch requirements.txt
           pip install -r requirements.txt
       - name: Build site ⚙️
-        run: python3 build.py
+        run: python3 build.py -vc
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
