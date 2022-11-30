@@ -1,0 +1,15 @@
+{
+  "static": [
+    "fonts",
+    "media",
+    "scripts",
+    "styles"
+  ],
+  "index": "pattern.html",
+  "replace": {
+    "@COUNTER@": "!debug",
+    "@NAME@": "Yaroslav Novitsky",
+    "@NICK@": "MJaroslav",
+    "@AVATAR@": "https://github.com/MJaroslav.png"
+  }
+}

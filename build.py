@@ -25,19 +25,30 @@ def build(buildDir, clean, verbose, debug):
     def log(text):
         if (verbose):
             print(text)
+    
+    def format_config(value):
+        if value == "!debug":
+            return str(not bool(debug))
+        elif value == "debug":
+            return str(bool(debug))
+        else:
+            return value
+
+    config = json.load(open("config.json", "r"))
+    config["replace"] = {k: format_config(v) for k, v in config["replace"].items()}
     log(f"Build directory is {buildDir}")
     if clean:
         log("Clean build directory...")
         shutil.rmtree(f"./{buildDir}", ignore_errors=True)
     log("Building...")
 
-    for static in ["media", "fonts", "scripts", "styles"]:
+    for static in config["static"]:
         log(f"Copying static {static} data...")
         shutil.copytree(f"./source/{static}",
                         f"./{buildDir}/{static}", dirs_exist_ok=True)
 
-    log("Opening pattern.html...")
-    html = open("./source/pattern.html")
+    log(f"Opening {config['index']}...")
+    html = open(f"./source/{config['index']}")
     soup = bs(html, 'html.parser')
 
     log("Adding profiles...")
@@ -89,8 +100,10 @@ def build(buildDir, clean, verbose, debug):
     log("Writting formatted pattern to index.html...")
     with open(f"./{buildDir}/index.html", "w") as file:
         text = str(soup)
-        log("Toggle visit counter...")
-        text = text.replace("@COUNTER@", str(not bool(debug)))
+        log("Replacing elements...")
+        for k, v in config["replace"].items():
+            log(k + " to " + v)
+            text = text.replace(k, v)
         file.write(text)
 
     log("Done!")
