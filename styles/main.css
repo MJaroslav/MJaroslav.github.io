@@ -1,11 +1,12 @@
 body {
-  background: url("../media/background.jpg") no-repeat;
-  background-size: cover;
+  background: url("../media/sunflower.jpeg") repeat;
+  background-position: center top;
+  background-size: 20%;
   color: var(--white);
 }
 
 #layout {
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, .85);
 }
 
 hr {
