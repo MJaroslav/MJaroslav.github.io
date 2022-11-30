@@ -16,10 +16,12 @@ def init():
                         help="Clean output directory before build.")
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="Show more information about building.")
+    parser.add_argument("-d", "--debug", action="store_true",
+                        help="Mark build as debug, its will disable visit counter and similar things.")
     return parser.parse_args(sys.argv[1:])
 
 
-def build(buildDir, clean, verbose):
+def build(buildDir, clean, verbose, debug):
     def log(text):
         if (verbose):
             print(text)
@@ -86,14 +88,17 @@ def build(buildDir, clean, verbose):
 
     log("Writting formatted pattern to index.html...")
     with open(f"./{buildDir}/index.html", "w") as file:
-        file.write(str(soup))
+        text = str(soup)
+        log("Toggle visit counter...")
+        text = text.replace("@COUNTER@", str(not bool(debug)))
+        file.write(text)
 
     log("Done!")
 
 
 def main():
     args = init()
-    build(args.output, args.clean, args.verbose)
+    build(args.output, args.clean, args.verbose, args.debug)
 
 
 if __name__ == "__main__":
