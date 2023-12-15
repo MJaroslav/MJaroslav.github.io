@@ -4,8 +4,7 @@
     "media",
     "scripts",
     "styles",
-    ".well-known",
-    ".nojekyll"
+    ".well-known"
   ],
   "index": "pattern.html",
   "replace": {
