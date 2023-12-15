@@ -3,7 +3,8 @@
     "fonts",
     "media",
     "scripts",
-    "styles"
+    "styles",
+    ".well-known"
   ],
   "index": "pattern.html",
   "replace": {
