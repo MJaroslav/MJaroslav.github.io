@@ -2,6 +2,7 @@
 import argparse
 import sys
 import shutil
+import os
 from bs4 import BeautifulSoup as bs
 import json
 from datetime import date
@@ -44,9 +45,11 @@ def build(buildDir, clean, verbose, debug):
 
     for static in config["static"]:
         log(f"Copying static {static} data...")
-        shutil.copytree(f"./source/{static}",
+        if os.path.isdir(f"./source/{static}"):
+            shutil.copytree(f"./source/{static}",
                         f"./{buildDir}/{static}", dirs_exist_ok=True)
-
+        else:
+            shutil.copy(f"./source/{static}", f"./{buildDir}/{static}")
     log(f"Opening {config['index']}...")
     html = open(f"./source/{config['index']}")
     soup = bs(html, 'html.parser')
