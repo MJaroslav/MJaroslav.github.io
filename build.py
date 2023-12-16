@@ -6,11 +6,16 @@ import os
 from bs4 import BeautifulSoup as bs
 import json
 from datetime import date
+import time
+from watchdog.observers import Observer
+from watchdog.events import PatternMatchingEventHandler
+import http.server
+import socketserver
 
 
 def init():
     parser = argparse.ArgumentParser(add_help=True,
-                                     description="Builder for MJaroslav.github.io site, but you can use it too.")
+                                     description="Builder for MJaroslav.github.io site, but you can use it too. For dev, use -cds")
     parser.add_argument("-o", "--output", metavar="PATH",
                         default="_site", help='set build output directory. Default is "_site".')
     parser.add_argument("-c", "--clean", action="store_true",
@@ -19,6 +24,10 @@ def init():
                         help="Show more information about building.")
     parser.add_argument("-d", "--debug", action="store_true",
                         help="Mark build as debug, its will disable visit counter and similar things.")
+    parser.add_argument("-a", "--auto", action="store_true",
+                        help="Listen for any changes in source directory and rebuild project.")
+    parser.add_argument("-s", "--server", action="store_true",
+                        help="Run local web server and listen for any changes in source directory and rebuild project.")
     return parser.parse_args(sys.argv[1:])
 
 
@@ -40,16 +49,16 @@ def build(buildDir, clean, verbose, debug):
     log(f"Build directory is {buildDir}")
     if clean:
         log("Clean build directory...")
-        shutil.rmtree(f"./{buildDir}", ignore_errors=True)
+        shutil.rmtree(f"{buildDir}", ignore_errors=True)
     log("Building...")
 
     for static in config["static"]:
         log(f"Copying static {static} data...")
         if os.path.isdir(f"./source/{static}"):
             shutil.copytree(f"./source/{static}",
-                        f"./{buildDir}/{static}", dirs_exist_ok=True)
+                        f"{buildDir}/{static}", dirs_exist_ok=True)
         else:
-            shutil.copy(f"./source/{static}", f"./{buildDir}/{static}")
+            shutil.copy(f"./source/{static}", f"{buildDir}/{static}")
     log(f"Opening {config['index']}...")
     html = open(f"./source/{config['index']}")
     soup = bs(html, 'html.parser')
@@ -101,7 +110,7 @@ def build(buildDir, clean, verbose, debug):
     soup.find("p", id="year").string = str(date.today().year)
 
     log("Writting formatted pattern to index.html...")
-    with open(f"./{buildDir}/index.html", "w") as file:
+    with open(f"{buildDir}/index.html", "w") as file:
         text = str(soup)
         log("Replacing elements...")
         for k, v in config["replace"].items():
@@ -112,9 +121,54 @@ def build(buildDir, clean, verbose, debug):
     log("Done!")
 
 
+def autobuild(buildDir, clean, verbose, debug, server):
+    change_handler = PatternMatchingEventHandler(["*"], None, False, True)
+
+    def on_event(event):
+        if (verbose):
+            print("Detected changes! Rebuilding...")
+        build(buildDir, clean, verbose, debug)
+    
+    change_handler.on_created = on_event
+    change_handler.on_moved = on_event
+    change_handler.on_deleted = on_event
+    change_handler.on_modified = on_event
+
+    observer = Observer()
+    observer.schedule(change_handler, "./source/", recursive=True)
+
+    build(buildDir, clean, verbose, debug)
+
+    observer.start()
+    httpd = None
+    try:
+        if server:
+            class Handler(http.server.SimpleHTTPRequestHandler):
+                def __init__(self, *args, **kwargs):
+                    super().__init__(*args, directory=buildDir, **kwargs)
+
+            httpd = socketserver.TCPServer(("", 8000), Handler)
+            print("Starting server on localhost:8000...")
+            server = httpd
+            httpd.serve_forever()
+        else:
+            while True:
+                time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+        observer.join()
+        if httpd:
+            print("Stopping the server...")
+            httpd.server_close()
+    
 def main():
     args = init()
-    build(args.output, args.clean, args.verbose, args.debug)
+    if args.server:
+        args.auto = True
+    if args.auto:
+        autobuild(args.output, args.clean, args.verbose, args.debug, args.server)
+    else:
+        build(args.output, args.clean, args.verbose, args.debug)
 
 
 if __name__ == "__main__":
