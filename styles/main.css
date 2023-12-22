@@ -45,3 +45,12 @@ a:hover, .music-entry-image:hover {
 .profile-entry:hover {
   text-decoration: none;
 }
+
+.about-icon {
+  font-size: 150%;
+}
+
+
+.bio {
+  text-indent: 20px;
+}
