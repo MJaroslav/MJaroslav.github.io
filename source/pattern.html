@@ -11,7 +11,7 @@
   <link rel="stylesheet" type="text/css" href="styles/icons.css">
   <link rel="icon" type="image/png" href="media/favicon.png">
   <link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.css">
   <!--[if lt IE 9]>
    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
   <![endif]-->
@@ -34,6 +34,9 @@
       <div class="row justify-content-center text-center">
         <h5 class="col-sm-auto text-secondary">&lt;@NAME@&gt;</h5>
       </div>
+      <div class="text-center">
+        <i id="header-scroll-down" class="bi bi-chevron-down" style="font-size: 300%; cursor: pointer;"></i>
+      </div>
     </header>
     <main>
       <article>
@@ -43,8 +46,32 @@
           </div>
         </div>
         <div class="category-body mx-5">
-          <div class="row">
-            <i class="bi bi-info-circle-fill mr-2 d-inline-flex"></i>TODO
+          <div class="float-sm-left mr-3 px-2">
+            <div>
+              <i class="bi bi-cake2-fill align-middle about-icon mr-1"></i><b> Age:</b> 22
+            </div>
+            <div>
+              <i class="bi bi-gender-male align-middle about-icon mr-1"></i><b> Gender:</b> male
+            </div>
+            <div>
+              <i class="bi bi-geo-alt-fill align-middle about-icon mr-1"></i><b> Location:</b> Saint-Petersburg
+            </div>
+            <div>
+              <i class="bi bi-translate align-middle about-icon mr-1"></i><b> Languages:</b> RU + <i
+                data-toggle="tooltip" data-placement="bottom" title="In learning">EN</i>
+            </div>
+          </div>
+          <div class="clearfix bio">
+            I'm Yaroslav also know as MJaroslav, Java and Python developer. You might know me for my Minecraft Mods. My
+            way as programmer started around 2013. In this year I start learning Pascal on school program. Some time
+            later, I wanted to create my own modification for Minecraft, so I started learning Java on my own. Also I
+            started created chat bots for Discord and VK. Towards the end of school I started learning Python and some
+            part of informatics exams was written on it. After school I went to college to become a programmer. During
+            my academic years, I had experience working with languages such as C++, C# (desktop and web development),
+            Java (Android development) and Python. For example, my graduation project is a back-end written in Python
+            using the FastAPI framework. After graduating from college, I studied to become a C category driver and was
+            drafted into the army until the end of 2023. Currently I am planning to improve my English to an acceptable
+            level (in order not to write such texts with the help of a translator c:) and take on some major project.
           </div>
         </div>
       </article>
@@ -83,7 +110,8 @@
           <div class="music row row-cols-3 row-cols-sm-4 row-cols-md-6">
             <!--- Placeholder --->
           </div>
-          <p class="text-center"><i class="bi bi-info-circle-fill mr-2"></i>Source of all images — <a class="text-secondary" href="https://last.fm">last.fm</a>.
+          <p class="text-center"><i class="bi bi-info-circle-fill mr-2"></i>Source of all images — <a
+              class="text-secondary" href="https://last.fm">last.fm</a>.
           </p>
         </div>
       </article>
@@ -118,14 +146,20 @@
             alt="Visit Counter" class="w-auto">
         </a>
       </div>
-      <p>Site by @NICK@. Its structure inspired by <a class="text-secondary"
-          href="https://vazkii.net">Vazkii site</a>.</p>
-      <a class="row justify-content-center" href="http://www.wtfpl.net/"><img
-          src="media/wtfpl_logo.png" alt="WTFPL"></a>
+      <div class="row justify-content-center">
+        <a href="https://mynickname.com/MJaroslav">
+          <img src="https://mynickname.com/img.php?nick=MJaroslav&sert=26&text=t4" alt="My nickname is MJaroslav" />
+        </a>
+      </div>
+      <p>Site by @NICK@. Its structure inspired by <a class="text-secondary" href="https://vazkii.net">Vazkii site</a>.
+      </p>
+      <a class="row justify-content-center" href="http://www.wtfpl.net/"><img src="media/wtfpl_logo.png"
+          alt="WTFPL"></a>
       <p id="year">
         <!-- Placeholder -->
       </p>
-      <a href="https://github.com/MJaroslav/MJaroslav.github.io"><i class="bi bi-github mr-2"></i>View source of site.</a>
+      <a href="https://github.com/MJaroslav/MJaroslav.github.io"><i class="bi bi-github mr-2"></i>View source of
+        site.</a>
     </footer>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"
