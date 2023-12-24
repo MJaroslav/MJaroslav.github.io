@@ -14,28 +14,55 @@ import socketserver
 
 
 def init():
-    parser = argparse.ArgumentParser(add_help=True,
-                                     description="Builder for MJaroslav.github.io site, but you can use it too. For dev, use -cds")
-    parser.add_argument("-o", "--output", metavar="PATH",
-                        default="_site", help='set build output directory. Default is "_site".')
-    parser.add_argument("-c", "--clean", action="store_true",
-                        help="Clean output directory before build.")
-    parser.add_argument("-v", "--verbose", action="store_true",
-                        help="Show more information about building.")
-    parser.add_argument("-d", "--debug", action="store_true",
-                        help="Mark build as debug, its will disable visit counter and similar things.")
-    parser.add_argument("-a", "--auto", action="store_true",
-                        help="Listen for any changes in source directory and rebuild project.")
-    parser.add_argument("-s", "--server", action="store_true",
-                        help="Run local web server and listen for any changes in source directory and rebuild project.")
+    parser = argparse.ArgumentParser(
+        add_help=True,
+        description="Builder for MJaroslav.github.io site, but you can use it too. For dev, use -cds",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        metavar="PATH",
+        default="_site",
+        help='set build output directory. Default is "_site".',
+    )
+    parser.add_argument(
+        "-c",
+        "--clean",
+        action="store_true",
+        help="Clean output directory before build.",
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Show more information about building.",
+    )
+    parser.add_argument(
+        "-d",
+        "--debug",
+        action="store_true",
+        help="Mark build as debug, its will disable visit counter and similar things.",
+    )
+    parser.add_argument(
+        "-a",
+        "--auto",
+        action="store_true",
+        help="Listen for any changes in source directory and rebuild project.",
+    )
+    parser.add_argument(
+        "-s",
+        "--server",
+        action="store_true",
+        help="Run local web server and listen for any changes in source directory and rebuild project.",
+    )
     return parser.parse_args(sys.argv[1:])
 
 
 def build(buildDir, clean, verbose, debug):
     def log(text):
-        if (verbose):
+        if verbose:
             print(text)
-    
+
     def format_config(value):
         if value == "!debug":
             return str(not bool(debug))
@@ -44,24 +71,28 @@ def build(buildDir, clean, verbose, debug):
         else:
             return value
 
-    config = json.load(open("config.json", "r"))
+    config = json.load(open("source/config.json", "r"))
     config["replace"] = {k: format_config(v) for k, v in config["replace"].items()}
+
     log(f"Build directory is {buildDir}")
     if clean:
         log("Clean build directory...")
         shutil.rmtree(f"{buildDir}", ignore_errors=True)
+
     log("Building...")
 
     for static in config["static"]:
         log(f"Copying static {static} data...")
         if os.path.isdir(f"./source/{static}"):
-            shutil.copytree(f"./source/{static}",
-                        f"{buildDir}/{static}", dirs_exist_ok=True)
+            shutil.copytree(
+                f"./source/{static}", f"{buildDir}/{static}", dirs_exist_ok=True
+            )
         else:
             shutil.copy(f"./source/{static}", f"{buildDir}/{static}")
+
     log(f"Opening {config['index']}...")
     html = open(f"./source/{config['index']}")
-    soup = bs(html, 'html.parser')
+    soup = bs(html, "html.parser")
 
     log("Adding profiles...")
     with open("./source/data/profiles.json", "r") as file:
@@ -75,7 +106,7 @@ def build(buildDir, clean, verbose, debug):
                 "href": e["url"],
                 "data-html": "true",
                 "data-toggle": "tooltip",
-                "title": tooltip
+                "title": tooltip,
             }
             link = soup.new_tag("a", **attrs)
             soup.find("div", class_="profiles").append(link)
@@ -85,10 +116,7 @@ def build(buildDir, clean, verbose, debug):
     with open("./source/data/music.json", "r") as file:
         music = json.load(file)
         for e in music:
-            attrs = {
-                "class": "music-entry p-3",
-                "href": e["url"]
-            }
+            attrs = {"class": "music-entry p-3", "href": e["url"]}
             link = soup.new_tag("a", **attrs)
             tooltip = e["name"]
             if "tooltip" in e:
@@ -99,14 +127,14 @@ def build(buildDir, clean, verbose, debug):
                 "title": tooltip,
                 "alr": e["name"],
                 "src": f"media/music/{e['image']}",
-                "class": "col music-entry-image p-0 rounded-circle border"
+                "class": "col music-entry-image p-0 rounded-circle border",
             }
             img = soup.new_tag("img", **attrs)
             link.append(img)
             soup.find("div", class_="music").append(link)
             log(f"Created music entry {e['name']}")
 
-    log("Setting current year...")
+    log("Setting current year to the footer...")
     soup.find("p", id="year").string = str(date.today().year)
 
     log("Writting formatted pattern to index.html...")
@@ -125,10 +153,10 @@ def autobuild(buildDir, clean, verbose, debug, server):
     change_handler = PatternMatchingEventHandler(["*"], None, False, True)
 
     def on_event(event):
-        if (verbose):
+        if verbose:
             print("Detected changes! Rebuilding...")
         build(buildDir, clean, verbose, debug)
-    
+
     change_handler.on_created = on_event
     change_handler.on_moved = on_event
     change_handler.on_deleted = on_event
@@ -143,6 +171,7 @@ def autobuild(buildDir, clean, verbose, debug, server):
     httpd = None
     try:
         if server:
+
             class Handler(http.server.SimpleHTTPRequestHandler):
                 def __init__(self, *args, **kwargs):
                     super().__init__(*args, directory=buildDir, **kwargs)
@@ -160,7 +189,8 @@ def autobuild(buildDir, clean, verbose, debug, server):
         if httpd:
             print("Stopping the server...")
             httpd.server_close()
-    
+
+
 def main():
     args = init()
     if args.server:

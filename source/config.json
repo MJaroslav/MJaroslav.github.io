@@ -11,6 +11,10 @@
     "@COUNTER_ID@": "mjaroslav.github.io",
     "@NAME@": "Yaroslav Novitsky",
     "@NICK@": "MJaroslav",
-    "@AVATAR@": "https://github.com/MJaroslav.png"
+    "@B-DAY@": "18 may 2001",
+    "@AVATAR@": "https://github.com/MJaroslav.png",
+    "@LOCATION@": "Saint-Petersburg",
+    "@GENDER@": "male",
+    "@LANGS@": "RU + <i data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"In learning\">EN</i>"
   }
 }
