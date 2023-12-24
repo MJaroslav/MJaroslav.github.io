@@ -50,7 +50,7 @@ You can run this command with `--help` parameter for show all command arguments.
 You can run local web server with file change listener in source folder:
 
 ```bash
-python build --clean --server
+python build.py --clean --server
 ```
 
 ### Deploy
