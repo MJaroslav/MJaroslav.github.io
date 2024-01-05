@@ -24,7 +24,7 @@ pip install -r requirements.txt
 ### Site editing
 
 All site sources contains in `source` directory.
-Edit [pattern.html](source/pattern.html) with your information and configure some things in [config.json](source/config.json).
+Edit [pattern.html](source/pattern.html) with your information and configure some things in [config.json](source/config.json). For using your links and music then configure [music.json](source/data/music.json) and [profiles.json](source/data/profiles.json), music image root folder is [source/assets/media/music](source/assets/media/music).
 
 Configuration values:
 
