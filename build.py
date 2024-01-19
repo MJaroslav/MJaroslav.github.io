@@ -94,6 +94,10 @@ def build(buildDir, clean, verbose, debug):
     html = open(f"./source/{config['index']}")
     soup = bs(html, "html.parser")
 
+    log("Adding bio...")
+    with open("./source/data/about.html", "r") as file:
+        soup.find("div", id="bio").append(bs(file.read(), "html.parser"))
+
     log("Adding profiles...")
     with open("./source/data/profiles.json", "r") as file:
         profiles = json.load(file)
@@ -140,6 +144,7 @@ def build(buildDir, clean, verbose, debug):
     log("Writting formatted pattern to index.html...")
     with open(f"{buildDir}/index.html", "w") as file:
         text = str(soup)
+        # text = soup.prettify()
         log("Replacing elements...")
         for k, v in config["replace"].items():
             log(k + " to " + v)

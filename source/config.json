@@ -7,6 +7,10 @@
   ],
   "index": "pattern.html",
   "replace": {
+    "@TITLE@": "MJaroslav — About",
+    "@DESC@": "Personal site with info and connections.",
+    "@URL@": "https://mjaroslav.github.io/",
+    "@COLOR@": "#FF9600",
     "@COUNTER_ID@": "MJaroslav.github.io",
     "@NAME@": "Yaroslav Novitsky",
     "@NICK@": "MJaroslav",
