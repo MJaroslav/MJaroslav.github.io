@@ -116,27 +116,42 @@ def build(buildDir, clean, verbose, debug):
             soup.find("div", class_="profiles").append(link)
             log(f"Created profile entry {e['name']}")
 
+    log("Adding projects...")
+    with open("./source/data/project.html", "r") as file:
+        template = file.read()
+        with open("./source/data/projects.json", "r") as file:
+            projects = json.load(file)
+            for e in projects:
+                soup.find("div", class_="projects").append(
+                    bs(
+                        template.replace("@NAME@", e["name"])
+                        .replace("@DESC@", e["desc"])
+                        .replace("@URL@", e["url"])
+                        .replace("@SRC@", e["src"]),
+                        "html.parser",
+                    )
+                )
+                log(f"Created project entry {e['name']}")
+
     log("Adding music...")
-    with open("./source/data/music.json", "r") as file:
-        music = json.load(file)
-        for e in music:
-            attrs = {"class": "music-entry p-3", "href": e["url"]}
-            link = soup.new_tag("a", **attrs)
-            tooltip = e["name"]
-            if "tooltip" in e:
-                tooltip += f"<br><br>{e['tooltip']}"
-            attrs = {
-                "data-html": "true",
-                "data-toggle": "tooltip",
-                "title": tooltip,
-                "alr": e["name"],
-                "src": f"media/music/{e['image']}",
-                "class": "col music-entry-image p-0 rounded-circle border",
-            }
-            img = soup.new_tag("img", **attrs)
-            link.append(img)
-            soup.find("div", class_="music").append(link)
-            log(f"Created music entry {e['name']}")
+    with open("./source/data/music.html", "r") as file:
+        template = file.read()
+        with open("./source/data/music.json", "r") as file:
+            music = json.load(file)
+            for e in music:
+                tooltip = e["name"]
+                if "tooltip" in e:
+                    tooltip += f"<br><br>{e['tooltip']}"
+                soup.find("div", class_="music").append(
+                    bs(
+                        template.replace("@URL@", e["url"])
+                        .replace("@NAME@", e["name"])
+                        .replace("@TOOLTIP@", tooltip)
+                        .replace("@IMG@", e["image"]),
+                        "html.parser",
+                    )
+                )
+                log(f"Created music entry {e['name']}")
 
     log("Setting current year to the footer...")
     soup.find("p", id="year").string = str(date.today().year)

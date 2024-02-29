@@ -9,7 +9,8 @@ body {
 }
 
 #layout {
-  background-color: rgba(0, 0, 0, .85);
+  backdrop-filter: blur(5px);
+  background-color: rgba(0, 0, 0, .70);
 }
 
 hr {
@@ -38,7 +39,8 @@ header {
   color: var(--orange) !important;
 }
 
-a:hover, .music-entry-image:hover {
+a:hover,
+.music-entry-image:hover {
   color: var(--orange);
 }
 
@@ -53,4 +55,8 @@ a:hover, .music-entry-image:hover {
 
 #bio {
   text-indent: 20px;
+}
+
+.project .card {
+  background-color: rgba(0, 0, 0, .4);
 }

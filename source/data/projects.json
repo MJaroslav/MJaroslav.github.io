@@ -1,0 +1,50 @@
+[
+  {
+    "name": "This website <img alt=\"GitHub Pages\" src=\"https://img.shields.io/badge/github%20pages-121013?logo=github&logoColor=white\">",
+    "desc": "Small template with builder for static web page generation.<hr><img alt=\"html5\" src=\"https://img.shields.io/badge/html5-%23E34F26.svg?logo=html5&logoColor=white\"><img alt=\"python\" src=\"https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54\"><a href=\"https://github.com/MJaroslav/MJaroslav.github.io/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/mjaroslav.github.io\"></a>",
+    "url": "https://mjaroslav.github.io",
+    "src": "https://github.com/MJaroslav/MJaroslav.github.io"
+  },
+  {
+    "name": "moe-counter-remade",
+    "desc": "My FastAPI driven rewrite of <a href=\"https://github.com/journey-ad/Moe-counter/\">journey-ad/Moe-counter</a>. Currently not hosted.<hr><img alt=\"python\" src=\"https://img.shields.io/badge/python-3670A0?logo=python&logoColor=ffdd54\"><img alt=\"FastAPI\" src=\"https://img.shields.io/badge/FastAPI-005571?logo=fastapi\"><a href=\"https://github.com/MJaroslav/moe-counter-remade/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/moe-counter-remade\"></a>",
+    "url": "https://github.com/MJaroslav/moe-counter-remade",
+    "src": "https://github.com/MJaroslav/moe-counter-remade"
+  },
+  {
+    "name": "Shared-Java <a href=\"https://jitpack.io/#MJaroslav/Shared-Java\"><img src=\"https://jitpack.io/v/MJaroslav/Shared-Java.svg\"></a>",
+    "desc": "Some of my shared java code (but NOT minecraft related). Contains tuples (for 1, 2 and 3 elements) and delegating realization of Collections.<hr><img alt=\"java\" src=\"https://img.shields.io/badge/java-%23ED8B00.svg?logo=openjdk&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://github.com/MJaroslav/Shared-Java/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/shared-java\"></a>",
+    "url": "https://jitpack.io/com/github/MJaroslav/Shared-Java/latest/javadoc/",
+    "src": "https://github.com/MJaroslav/Shared-Java"
+  },
+  {
+    "name": "Bon2Gradle <a href=\"https://jitpack.io/#MJaroslav/Bon2Gradle\"><img src=\"https://jitpack.io/v/MJaroslav/Bon2Gradle.svg\"></a>",
+    "desc": "Plugin for Minecraft Dev projects that allows use BON2 as analog of fg.deobf from ForgeGradle.<hr><img alt=\"kotlin\" src=\"https://img.shields.io/badge/kotlin-%237F52FF.svg?logo=kotlin&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://github.com/MJaroslav/Bon2Gradle/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/bon2gradle\"></a>",
+    "url": "https://github.com/MJaroslav/Bon2Gradle/releases",
+    "src": "https://github.com/MJaroslav/Bon2Gradle"
+  },
+  {
+    "name": "MCInGameTester <a href=\"https://jitpack.io/#MJaroslav/MCInGameTester\"><img src=\"https://jitpack.io/v/MJaroslav/MCInGameTester.svg\"></a>",
+    "desc": "Engine for tests, that requires minecraft to be loaded.<hr><img alt=\"java\" src=\"https://img.shields.io/badge/java-%23ED8B00.svg?logo=openjdk&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://github.com/MJaroslav/MCInGameTester/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/mcingametester\"></a>",
+    "url": "https://github.com/MJaroslav/MCInGameTester/releases",
+    "src": "https://github.com/MJaroslav/MCInGameTester"
+  },
+  {
+    "name": "MJUtils <a href=\"https://jitpack.io/#MJaroslav/MJUtils\"><img src=\"https://jitpack.io/v/MJaroslav/MJUtils.svg\"></a>",
+    "desc": "My Minecraft library with boilerplate code for mod creating. Main features is modular mod load system, annotation based configurations, more features like as Pos (BlockBos backport). Currently being actively rewritten and supplemented.<hr><img alt=\"java\" src=\"https://img.shields.io/badge/java-%23ED8B00.svg?logo=openjdk&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://www.curseforge.com/minecraft/mc-mods/mjutils\"><img src=\"https://cf.way2muchnoise.eu/280824.svg\"></a><a href=\"https://github.com/MJaroslav/MJUtils/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/mjutils\"></a>",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/mjutils",
+    "src": "https://github.com/MJaroslav/MJUtils"
+  },
+  {
+    "name": "ThaumOres <a href=\"https://jitpack.io/#MJaroslav/ThaumOres\"><img src=\"https://jitpack.io/v/MJaroslav/ThaumOres.svg\"></a>",
+    "desc": "Small mod adds Thaumcraft's shards ore to generation of the End, the Nether and Overworld's bedrock layer.<hr><img alt=\"java\" src=\"https://img.shields.io/badge/java-%23ED8B00.svg?logo=openjdk&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://www.curseforge.com/minecraft/mc-mods/thaumores\"><img src=\"https://cf.way2muchnoise.eu/237899.svg\"></a><a href=\"https://github.com/MJaroslav/ThaumOres/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/thaumores\"></a>",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/thaumores",
+    "src": "https://github.com/MJaroslav/ThaumOres"
+  },
+  {
+    "name": "RealisticBrewingStand <a href=\"https://jitpack.io/#MJaroslav/RealisticBrewingStand\"><img src=\"https://jitpack.io/v/MJaroslav/RealisticBrewingStand.svg\"></a>",
+    "desc": "Little logical fix (in render) of the brewing stand from Minecraft.<hr><img alt=\"java\" src=\"https://img.shields.io/badge/java-%23ED8B00.svg?logo=openjdk&logoColor=white\"><img alt=\"gradle\" src=\"https://img.shields.io/badge/Gradle-02303A.svg?logo=Gradle&logoColor=white\"><a href=\"https://www.curseforge.com/minecraft/mc-mods/realistic-brewing-stand\"><img src=\"https://cf.way2muchnoise.eu/272921.svg\"></a><a href=\"https://github.com/MJaroslav/RealisticBrewingStand/stargazers\"><img alt=\"GitHub Stars\" src=\"https://img.shields.io/github/stars/mjaroslav/realisticbrewingstand\"></a>",
+    "url": "https://www.curseforge.com/minecraft/mc-mods/realistic-brewing-stand",
+    "src": "https://github.com/MJaroslav/RealisticBrewingStand"
+  }
+]
