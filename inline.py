@@ -14,16 +14,24 @@ CURSE_MOD = "https://www.curseforge.com/minecraft/mc-mods"
 GITHUB = "https://github.com"
 PATTERNS = {}
 
-with open("./source/inline.json", "r") as file:
-    PATTERNS = json.load(file)
-
 
 def get(name: str):
     return PATTERNS[name]
 
 
+def conf(name: str):
+    result = PATTERNS["config"]
+    for el in name.split("."):
+        result = result[el]
+    return result
+
+
+def is_debug():
+    return PATTERNS["debug"]
+
 def join(sep: str, *args: str) -> str:
     return sep.join(args)
+
 
 def tooltip(text: str) -> str:
     return f'data-html="true" data-toggle="tooltip" title="{text}"'
@@ -32,12 +40,18 @@ def tooltip(text: str) -> str:
 def gh(url: str) -> str:
     return f'<a href="{GITHUB}/{url}">{url}</a>'
 
-def notnone(target: str, html: str) -> str:
-    return html.replace("@IT@", target) if target else ""
+
+def notnone(target, html: str) -> str:
+    return html.replace("@IT@", target if type(target) is str else str(target)) if target else ""
+
+
+def orelse(target, html: str, else_html: str) -> str:
+    return html.replace("@IT@", target if type(target) is str else str(target)) if target else else_html
 
 
 def jitpack(owner: str, project: str) -> str:
-    return f'<a href="{JITPACK}/#{owner}/{project}"><img alt="Version from JitPack" src="{JITPACK}/v/{owner}/{project}.svg\"></a>'
+    return f'<a href="{JITPACK}/#{owner}/{project}"><img alt="Version from JitPack" src="{JITPACK}/v/{owner}/{project}.svg"></a>'
+
 
 def curse_dl(project_id: str) -> str:
     return f'<img alt="Downloads from CurseForge" src="{SHIELDS_CURSE}/dt/{project_id}?logo=curseforge&label=Downloads&color=orange">'
@@ -81,6 +95,8 @@ def __get_allowed_funcs__():
         result[func[0]] = func[1]
     del result["compile"]
     del result["load"]
+    del result["load_patterns"]
+    del result["inject_config"]
     return result
 
 
@@ -90,6 +106,27 @@ def compile(raw_text: str) -> str:
     )
 
 
+def apply(element):
+    if type(element) is list:
+        return [apply(e) for e in element]
+    elif type(element) is dict:
+        return {k: apply(v) for k, v in element.items()}
+    else:
+        return compile(element)
+
+
 def load(path) -> str:
     with open(path, "r") as file:
         return compile(file.read())
+
+
+def load_patterns(debug: bool):
+    global PATTERNS
+    with open("./source/inline.json", "r") as file:
+        PATTERNS = json.load(file)
+    PATTERNS["debug"] = debug
+
+
+def inject_config(config: dir):
+    global PATTERNS
+    PATTERNS["config"] = config

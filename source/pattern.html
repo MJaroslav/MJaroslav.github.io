@@ -47,7 +47,7 @@
         </div>
         <div class="category-body mx-sm-5">
           <div class="row">
-            <div class="col-sm-auto ml-2 mr-3 px-2">
+            <div class="col-lg-auto ml-2 mr-3 px-2">
               <div>
                 <i class="bi bi-cake2-fill align-middle about-icon mr-1"></i><b> B-Day:</b> @B-DAY@
               </div>
@@ -61,7 +61,7 @@
                 <i class="bi bi-translate align-middle about-icon mr-1"></i><b> Languages:</b> @LANGS@
               </div>
             </div>
-            <div id="bio" class="col-sm">
+            <div id="bio" class="col-lg">
               <!--- Placeholder --->
             </div>
           </div>
@@ -74,7 +74,7 @@
           </div>
         </div>
         <div class="category-body mx-sm-5">
-          <div id="projects" class="row row-cols-1 row-cols-sm-2">
+          <div id="projects" class="row row-cols-1 row-cols-md-2">
             <!--- Placeholder --->
           </div>
         </div>
@@ -99,7 +99,7 @@
         </div>
         <div class="category-body mx-sm-5">
           <i class="bi bi-info-circle-fill mr-2"></i>TODO
-          <div class="music row row-cols-3 row-cols-sm-4 row-cols-md-6">
+          <div class="music row row-cols-3 row-cols-sm-4 row-cols-md-4 row-cols-lg-6">
             <!--- Placeholder --->
           </div>
           <p class="text-center"><i class="bi bi-info-circle-fill mr-2"></i>Source of all images — <a
@@ -131,9 +131,11 @@
     <hr>
     <footer class="text-center">
       <div class="row justify-content-center">
-        <a href="https://moe-counter.glitch.me/" id="counter" class="h-25 cursor-help"
-          data-toggle="tooltip" data-html="true" title="Click to visit visit-counter site">
-          <image src="https://moe-counter.glitch.me/get/@@COUNTER_ID@?theme=rule34" alt="Visit Counter" class="w-auto">
+        <a href="https://moe-counter.glitch.me/" id="counter" class="h-25 cursor-help" data-toggle="tooltip"
+          data-html="true" title="Click to visit visit-counter site">
+          <image
+            src="```orelse(is_debug(), 'https://www.gelbooru.com/counter/0.gif', 'https://moe-counter.glitch.me/get/@@COUNTER_ID@?theme=rule34')```"
+            alt="Visit Counter" class="w-auto">
         </a>
       </div>
       <div class="row justify-content-center">

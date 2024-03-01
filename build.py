@@ -64,16 +64,10 @@ def build(buildDir, clean, verbose, debug):
         if verbose:
             print(text)
 
-    def format_config(value):
-        if value == "!debug":
-            return str(not bool(debug))
-        elif value == "debug":
-            return str(bool(debug))
-        else:
-            return value
-
-    config = json.loads(inline.load("./source/config.json"))
-    config["replace"] = {k: format_config(v) for k, v in config["replace"].items()}
+    inline.load_patterns(debug)
+    config = json.load(open("./source/config.json", "r"))
+    config = inline.apply(config)
+    inline.inject_config(config)
 
     log(f"Build directory is {buildDir}")
     if clean:
@@ -100,7 +94,8 @@ def build(buildDir, clean, verbose, debug):
     )
 
     log("Adding profiles...")
-    profiles = json.loads(inline.load("./source/data/profiles.json"))
+    profiles = json.load(open("./source/data/profiles.json", "r"))
+    profiles = inline.apply(profiles)
     for e in profiles:
         tooltip = e["name"]
         if "tooltip" in e:
@@ -120,22 +115,18 @@ def build(buildDir, clean, verbose, debug):
     with open("./source/data/project.html", "r") as file:
         template = file.read()
         with open("./source/data/projects.json") as file:
-            for e in json.load(file):
+            projects = json.load(file)
+            projects = inline.apply(projects)
+            for e in projects:
+                e = inline.apply(e)
                 soup.find("div", id="projects").append(
                     bs(
                         inline.compile(
-                            template.replace("@NAME@", inline.compile(e["name"]))
+                            template.replace("@NAME@", e["name"])
                             .replace("@DESC@", e["desc"])
-                            .replace(
-                                "@URL@", inline.compile(e["url"] if "url" in e else "")
-                            )
-                            .replace(
-                                "@SRC@", inline.compile(e["src"] if "src" in e else "")
-                            )
-                            .replace(
-                                "@BADGES@",
-                                inline.compile(e["badges"] if "badges" in e else ""),
-                            )
+                            .replace("@URL@", e["url"] if "url" in e else "")
+                            .replace("@SRC@", e["src"] if "src" in e else "")
+                            .replace("@BADGES@", e["badges"] if "badges" in e else "")
                         ),
                         "html.parser",
                     )
@@ -147,6 +138,7 @@ def build(buildDir, clean, verbose, debug):
         template = file.read()
         with open("./source/data/music.json", "r") as file:
             music = json.load(file)
+            music = inline.apply(music)
             for e in music:
                 tooltip = e["name"]
                 if "tooltip" in e:

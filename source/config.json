@@ -18,6 +18,6 @@
     "@AVATAR@": "https://github.com/MJaroslav.png",
     "@LOCATION@": "Saint-Petersburg",
     "@GENDER@": "male",
-    "@LANGS@": "RU + <i data-toggle=\"tooltip\" data-placement=\"bottom\" title=\"In learning\">EN</i>"
+    "@LANGS@": "RU + <i ```tooltip('In learning')```>EN</i>"
   }
 }
