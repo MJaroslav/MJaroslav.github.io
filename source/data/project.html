@@ -6,7 +6,8 @@
     </div>
     ```notnone(r'@URL@@SRC@@BADGES@',
     '<div class="card-footer">' +
-      notnone('@BADGES@', '@IT@<br><br>') +
+      notnone('@BADGES@', '@IT@') +
+      notnone('@URL@@SRC@', '<br><br>') +
       notnone("@URL@", '<a href="@IT@" class="card-link"><i class="bi bi-house-fill"></i> Site</a>') +
       notnone("@SRC@", '<a href="@IT@" class="card-link"><i class="bi bi-github"></i> Source</a>') +
       '</div>')```
