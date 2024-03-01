@@ -11,6 +11,7 @@ from watchdog.observers import Observer
 from watchdog.events import PatternMatchingEventHandler
 import http.server
 import socketserver
+import inline
 
 
 def init():
@@ -71,7 +72,7 @@ def build(buildDir, clean, verbose, debug):
         else:
             return value
 
-    config = json.load(open("source/config.json", "r"))
+    config = json.loads(inline.load("./source/config.json"))
     config["replace"] = {k: format_config(v) for k, v in config["replace"].items()}
 
     log(f"Build directory is {buildDir}")
@@ -91,43 +92,51 @@ def build(buildDir, clean, verbose, debug):
             shutil.copy(f"./source/{static}", f"{buildDir}/{static}")
 
     log(f"Opening {config['index']}...")
-    html = open(f"./source/{config['index']}")
-    soup = bs(html, "html.parser")
+    soup = bs(inline.load(f"./source/{config['index']}"), "html.parser")
 
     log("Adding bio...")
-    with open("./source/data/about.html", "r") as file:
-        soup.find("div", id="bio").append(bs(file.read(), "html.parser"))
+    soup.find("div", id="bio").append(
+        bs(inline.load("./source/data/about.html"), "html.parser")
+    )
 
     log("Adding profiles...")
-    with open("./source/data/profiles.json", "r") as file:
-        profiles = json.load(file)
-        for e in profiles:
-            tooltip = e["name"]
-            if "tooltip" in e:
-                tooltip += f"<br><br>{e['tooltip']}"
-            attrs = {
-                "class": f"profile-entry display-4 {e['icon']} mr-2",
-                "href": e["url"],
-                "data-html": "true",
-                "data-toggle": "tooltip",
-                "title": tooltip,
-            }
-            link = soup.new_tag("a", **attrs)
-            soup.find("div", class_="profiles").append(link)
-            log(f"Created profile entry {e['name']}")
+    profiles = json.loads(inline.load("./source/data/profiles.json"))
+    for e in profiles:
+        tooltip = e["name"]
+        if "tooltip" in e:
+            tooltip += f"<br><br>{e['tooltip']}"
+        attrs = {
+            "class": f"profile-entry display-4 {e['icon']} mr-2",
+            "href": e["url"],
+            "data-html": "true",
+            "data-toggle": "tooltip",
+            "title": tooltip,
+        }
+        link = soup.new_tag("a", **attrs)
+        soup.find("div", class_="profiles").append(link)
+        log(f"Created profile entry {e['name']}")
 
     log("Adding projects...")
     with open("./source/data/project.html", "r") as file:
         template = file.read()
-        with open("./source/data/projects.json", "r") as file:
-            projects = json.load(file)
-            for e in projects:
-                soup.find("div", class_="projects").append(
+        with open("./source/data/projects.json") as file:
+            for e in json.load(file):
+                soup.find("div", id="projects").append(
                     bs(
-                        template.replace("@NAME@", e["name"])
-                        .replace("@DESC@", e["desc"])
-                        .replace("@URL@", e["url"])
-                        .replace("@SRC@", e["src"]),
+                        inline.compile(
+                            template.replace("@NAME@", inline.compile(e["name"]))
+                            .replace("@DESC@", e["desc"])
+                            .replace(
+                                "@URL@", inline.compile(e["url"] if "url" in e else "")
+                            )
+                            .replace(
+                                "@SRC@", inline.compile(e["src"] if "src" in e else "")
+                            )
+                            .replace(
+                                "@BADGES@",
+                                inline.compile(e["badges"] if "badges" in e else ""),
+                            )
+                        ),
                         "html.parser",
                     )
                 )
@@ -144,10 +153,12 @@ def build(buildDir, clean, verbose, debug):
                     tooltip += f"<br><br>{e['tooltip']}"
                 soup.find("div", class_="music").append(
                     bs(
-                        template.replace("@URL@", e["url"])
-                        .replace("@NAME@", e["name"])
-                        .replace("@TOOLTIP@", tooltip)
-                        .replace("@IMG@", e["image"]),
+                        inline.compile(
+                            template.replace("@URL@", e["url"])
+                            .replace("@NAME@", e["name"])
+                            .replace("@TOOLTIP@", tooltip)
+                            .replace("@IMG@", e["image"])
+                        ),
                         "html.parser",
                     )
                 )

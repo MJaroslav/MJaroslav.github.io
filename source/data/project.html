@@ -4,9 +4,11 @@
       <h5 class="card-title">@NAME@</h5>
       <p class="card-text">@DESC@</p>
     </div>
-    <div class="card-footer">
-      <a href="@URL@" class="card-link"><i class="bi bi-house-fill"></i> Site</a>
-      <a href="@SRC@" class="card-link"><i class="bi bi-github"></i> Source</a>
-    </div>
+    ```notnone(r'@URL@@SRC@@BADGES@',
+    '<div class="card-footer">' +
+      notnone('@BADGES@', '@IT@<br><br>') +
+      notnone("@URL@", '<a href="@IT@" class="card-link"><i class="bi bi-house-fill"></i> Site</a>') +
+      notnone("@SRC@", '<a href="@IT@" class="card-link"><i class="bi bi-github"></i> Source</a>') +
+      '</div>')```
   </div>
 </div>

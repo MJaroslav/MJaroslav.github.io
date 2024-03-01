@@ -1,0 +1,38 @@
+{
+  "kotlin": [
+    "Kotlin",
+    "005571",
+    "white"
+  ],
+  "java": [
+    "Java",
+    "ED8B00",
+    "white",
+    "openjdk"
+  ],
+  "gradle": [
+    "Gradle",
+    "02303A",
+    "white"
+  ],
+  "python": [
+    "Python",
+    "3670A0",
+    "ffdd54"
+  ],
+  "fastapi": [
+    "FastAPI",
+    "005571"
+  ],
+  "ghpages": [
+    "GitHub Pages",
+    "121013",
+    "white",
+    "github"
+  ],
+  "html5": [
+    "HTML5",
+    "23E34F26",
+    "white"
+  ]
+}
