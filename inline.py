@@ -38,7 +38,7 @@ def tooltip(text: str) -> str:
 
 
 def gh(url: str) -> str:
-    return f'<a href="{GITHUB}/{url}">{url}</a>'
+    return f'<a class="text-secondary" href="{GITHUB}/{url}">{url}</a>'
 
 
 def notnone(target, html: str) -> str:

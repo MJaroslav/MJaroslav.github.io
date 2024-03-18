@@ -41,7 +41,7 @@
     <main>
       <article>
         <div class="row">
-          <div class="category-header mx-3 mt-1">
+          <div class="category-header mx-sm-3 mt-1">
             <h3 class="pt-2 pl-3"><i class="bi bi-person-fill mr-2"></i>About Me</h3>
           </div>
         </div>
@@ -69,7 +69,7 @@
       </article>
       <article>
         <div class="row">
-          <div class="category-header mx-3 mt-1">
+          <div class="category-header mx-sm-3 mt-1">
             <h3 class="pt-2 pl-3"><i class="bi bi-gear-fill mr-2"></i>Projects</h3>
           </div>
         </div>
@@ -81,7 +81,7 @@
       </article>
       <article>
         <div class="row">
-          <div class="category-header mx-3 mt-1">
+          <div class="category-header mx-sm-3 mt-1">
             <h3 class="pt-2 pl-3"><i class="bi bi-joystick mr-2"></i>Games</h3>
           </div>
         </div>
@@ -93,7 +93,7 @@
       </article>
       <article>
         <div class="row">
-          <div class="category-header mx-3 mt-1">
+          <div class="category-header mx-sm-3 mt-1">
             <h3 class="pt-2 pl-3"><i class="bi bi-music-note mr-2"></i>Music</h3>
           </div>
         </div>
@@ -109,7 +109,7 @@
       </article>
       <article>
         <div class="row">
-          <div class="category-header mx-3 mt-1">
+          <div class="category-header mx-sm-3 mt-1">
             <h3 class="pt-2 pl-3"><i class="bi bi-heart-fill mr-2"></i>Favorites</h3>
           </div>
         </div>
@@ -133,9 +133,7 @@
       <div class="row justify-content-center">
         <a href="https://moe-counter.glitch.me/" id="counter" class="h-25 cursor-help" data-toggle="tooltip"
           data-html="true" title="Click to visit visit-counter site">
-          <image
-            src="```orelse(is_debug(), 'https://www.gelbooru.com/counter/0.gif', 'https://moe-counter.glitch.me/get/@@COUNTER_ID@?theme=rule34')```"
-            alt="Visit Counter" class="w-auto">
+          ```orelse(is_debug(), ''.join(get('counter_placeholder')), get('counter'))```
         </a>
       </div>
       <div class="row justify-content-center">

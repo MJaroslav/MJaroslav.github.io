@@ -56,7 +56,11 @@ def init():
         action="store_true",
         help="Run local web server and listen for any changes in source directory and rebuild project.",
     )
-    return parser.parse_args(sys.argv[1:])
+    if len(sys.argv) == 1:
+        parser.print_help()
+        sys.exit(0)
+    else:
+        return parser.parse_args(sys.argv[1:])
 
 
 def build(buildDir, clean, verbose, debug):
