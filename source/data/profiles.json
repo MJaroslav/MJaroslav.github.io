@@ -20,14 +20,9 @@
     "icon": "icon-vk"
   },
   {
-    "name": "Instagram",
-    "url": "https://www.instagram.com/Nameless_Hiroki",
-    "icon": "bi bi-instagram"
-  },
-  {
     "name": "Twitter",
     "url": "https://twitter.com/MJaroslav",
-    "icon": "bi bi-twitter"
+    "icon": "bi bi-twitter-x"
   },
   {
     "name": "Spotify",
