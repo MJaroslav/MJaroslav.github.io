@@ -36,13 +36,13 @@
     "white"
   ],
   "counter_placeholder": [
-    "<image src=\"https://www.gelbooru.com/counter/1.gif\" alt=\"Visit Counter 1\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/2.gif\" alt=\"Visit Counter 2\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/3.gif\" alt=\"Visit Counter 3\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/4.gif\" alt=\"Visit Counter 4\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/5.gif\" alt=\"Visit Counter 5\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/6.gif\" alt=\"Visit Counter 6\" height=\"100\">",
-    "<image src=\"https://www.gelbooru.com/counter/7.gif\" alt=\"Visit Counter 7\" height=\"100\">"
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/1.gif\" alt=\"Visit Counter 1\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/2.gif\" alt=\"Visit Counter 2\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/3.gif\" alt=\"Visit Counter 3\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/4.gif\" alt=\"Visit Counter 4\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/5.gif\" alt=\"Visit Counter 5\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/6.gif\" alt=\"Visit Counter 6\" height=\"100\">",
+    "<image src=\"https://raw.githubusercontent.com/MJaroslav/moe-counter-remade/master/assets/themes/rule34/7.gif\" alt=\"Visit Counter 7\" height=\"100\">"
   ],
   "counter": "<image src=\"https://moe-counter.glitch.me/get/@@COUNTER_ID@?theme=rule34\" alt=\"Visit Counter 0\" class=\"w-auto\">"
 }

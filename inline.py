@@ -111,8 +111,10 @@ def apply(element):
         return [apply(e) for e in element]
     elif type(element) is dict:
         return {k: apply(v) for k, v in element.items()}
-    else:
+    elif type(element) is str:
         return compile(element)
+    else:
+        return element
 
 
 def load(path) -> str:

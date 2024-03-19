@@ -1,6 +1,6 @@
 <div class="music-entry p-3 p-sm-2 p-md-3 p-lg-3">
   <a class="rounded-circle" href="@URL@">
-    <img ```tooltip('@TOOLTIP@')``` alt="@NAME@" src="media/music/@IMG@"
+    <img ```tooltip('@NAME@' + notnone('@TOOLTIP@', '<br><br>@IT@'))``` alt="@NAME@" src="media/music/@IMG@"
       class="col music-entry-image p-0 rounded-circle border">
   </a>
 </div>

@@ -19,5 +19,74 @@
     "@LOCATION@": "Saint-Petersburg",
     "@GENDER@": "male",
     "@LANGS@": "RU + <i ```tooltip('In learning')```>EN</i>"
-  }
+  },
+  "place_list": [
+    {
+      "args": [
+        "./source/data/contact.html",
+        "./source/data/contacts.json",
+        "Adding contacts...",
+        [
+          "Created contact entry {name}",
+          "name"
+        ],
+        {
+          "class_": "contacts"
+        },
+        [
+          "name",
+          "icon",
+          "url",
+          "tooltip"
+        ]
+      ],
+      "kwargs": {
+        "strip": true
+      }
+    },
+    {
+      "args": [
+        "./source/data/project.html",
+        "./source/data/projects.json",
+        "Adding projects...",
+        [
+          "Created project entry {name}",
+          "name"
+        ],
+        {
+          "id": "projects"
+        },
+        [
+          "name",
+          "desc",
+          "url",
+          "src",
+          "badges"
+        ]
+      ]
+    },
+    {
+      "args": [
+        "./source/data/music.html",
+        "./source/data/music.json",
+        "Adding music...",
+        [
+          "Created music entry {name}",
+          "name"
+        ],
+        {
+          "class_": "music"
+        },
+        [
+          "url",
+          "name",
+          "tooltip",
+          [
+            "@IMG@",
+            "image"
+          ]
+        ]
+      ]
+    }
+  ]
 }

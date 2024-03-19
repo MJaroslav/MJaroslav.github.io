@@ -63,169 +63,167 @@ def init():
         return parser.parse_args(sys.argv[1:])
 
 
-def build(buildDir, clean, verbose, debug):
-    def log(text):
-        if verbose:
+class Builder(object):
+    def __init__(self, buildDir, clean, verbose, debug, server):
+        self.buildDir = buildDir
+        self.clean = clean
+        self.verbose = verbose
+        self.debug = debug
+        self.server = server
+
+    def log(self, text):
+        if self.verbose:
             print(text)
 
-    inline.load_patterns(debug)
-    config = json.load(open("./source/config.json", "r"))
-    config = inline.apply(config)
-    inline.inject_config(config)
-
-    log(f"Build directory is {buildDir}")
-    if clean:
-        log("Clean build directory...")
-        shutil.rmtree(f"{buildDir}", ignore_errors=True)
-
-    log("Building...")
-
-    for static in config["static"]:
-        log(f"Copying static {static} data...")
-        if os.path.isdir(f"./source/{static}"):
-            shutil.copytree(
-                f"./source/{static}", f"{buildDir}/{static}", dirs_exist_ok=True
-            )
-        else:
-            shutil.copy(f"./source/{static}", f"{buildDir}/{static}")
-
-    log(f"Opening {config['index']}...")
-    soup = bs(inline.load(f"./source/{config['index']}"), "html.parser")
-
-    log("Adding bio...")
-    soup.find("div", id="bio").append(
-        bs(inline.load("./source/data/about.html"), "html.parser")
-    )
-
-    log("Adding profiles...")
-    profiles = json.load(open("./source/data/profiles.json", "r"))
-    profiles = inline.apply(profiles)
-    for e in profiles:
-        tooltip = e["name"]
-        if "tooltip" in e:
-            tooltip += f"<br><br>{e['tooltip']}"
-        attrs = {
-            "class": f"profile-entry display-4 {e['icon']} mr-2",
-            "href": e["url"],
-            "data-html": "true",
-            "data-toggle": "tooltip",
-            "title": tooltip,
-        }
-        link = soup.new_tag("a", **attrs)
-        soup.find("div", class_="profiles").append(link)
-        log(f"Created profile entry {e['name']}")
-
-    log("Adding projects...")
-    with open("./source/data/project.html", "r") as file:
-        template = file.read()
-        with open("./source/data/projects.json") as file:
-            projects = json.load(file)
-            projects = inline.apply(projects)
-            for e in projects:
-                e = inline.apply(e)
-                soup.find("div", id="projects").append(
-                    bs(
-                        inline.compile(
-                            template.replace("@NAME@", e["name"])
-                            .replace("@DESC@", e["desc"])
-                            .replace("@URL@", e["url"] if "url" in e else "")
-                            .replace("@SRC@", e["src"] if "src" in e else "")
-                            .replace("@BADGES@", e["badges"] if "badges" in e else "")
-                        ),
-                        "html.parser",
+    def place_list(
+        self,
+        html_file,
+        json_file,
+        pre_msg,
+        elem_msg,
+        place_params,
+        keys,
+        place_type="div",
+        strip=False,
+        remove_ln=False,
+    ):
+        if pre_msg:
+            self.log(pre_msg)
+        with open(html_file, "r") as file:
+            template = file.read()
+            with open(json_file, "r") as file:
+                data = json.load(file)
+                data = inline.apply(data)
+                for e in data:
+                    formatted = template
+                    for key in keys:
+                        if type(key) == str:
+                            formatted = formatted.replace(
+                                f"@{key.upper()}@", e.get(key, "")
+                            )
+                        else:
+                            formatted = formatted.replace(
+                                key[0], e.get(key[1], key[2] if len(key) == 3 else "")
+                            )
+                    if strip:
+                        formatted = formatted.strip()
+                    if remove_ln:
+                        formatted = formatted.replace("\n", "")
+                    self.soup.find(place_type, **place_params).append(
+                        bs(inline.compile(formatted), "html.parser")
                     )
+                    if elem_msg:
+                        if type(elem_msg) == str:
+                            self.log(elem_msg)
+                        else:
+                            kwargs = {name: e.get(name, "") for name in elem_msg[1:]}
+                            self.log(elem_msg[0].format(**kwargs))
+
+    def build(self):
+        inline.load_patterns(self.debug)
+        config = json.load(open("./source/config.json", "r"))
+        config = inline.apply(config)
+        inline.inject_config(config)
+
+        self.log(f"Build directory is {self.buildDir}")
+        if self.clean:
+            self.log("Clean build directory...")
+            shutil.rmtree(f"{self.buildDir}", ignore_errors=True)
+
+        self.log("Building...")
+
+        for static in config["static"]:
+            self.log(f"Copying static {static} data...")
+            if os.path.isdir(f"./source/{static}"):
+                shutil.copytree(
+                    f"./source/{static}",
+                    f"{self.buildDir}/{static}",
+                    dirs_exist_ok=True,
                 )
-                log(f"Created project entry {e['name']}")
+            else:
+                shutil.copy(f"./source/{static}", f"{self.buildDir}/{static}")
 
-    log("Adding music...")
-    with open("./source/data/music.html", "r") as file:
-        template = file.read()
-        with open("./source/data/music.json", "r") as file:
-            music = json.load(file)
-            music = inline.apply(music)
-            for e in music:
-                tooltip = e["name"]
-                if "tooltip" in e:
-                    tooltip += f"<br><br>{e['tooltip']}"
-                soup.find("div", class_="music").append(
-                    bs(
-                        inline.compile(
-                            template.replace("@URL@", e["url"])
-                            .replace("@NAME@", e["name"])
-                            .replace("@TOOLTIP@", tooltip)
-                            .replace("@IMG@", e["image"])
-                        ),
-                        "html.parser",
-                    )
-                )
-                log(f"Created music entry {e['name']}")
+        self.log(f"Opening {config['index']}...")
+        self.soup = bs(inline.load(f"./source/{config['index']}"), "html.parser")
 
-    log("Setting current year to the footer...")
-    soup.find("p", id="year").string = str(date.today().year)
+        self.log("Adding bio...")
+        self.soup.find("div", id="bio").append(
+            bs(inline.load("./source/data/about.html"), "html.parser")
+        )
 
-    log("Writting formatted pattern to index.html...")
-    with open(f"{buildDir}/index.html", "w") as file:
-        text = str(soup)
-        # text = soup.prettify()
-        log("Replacing elements...")
-        for k, v in config["replace"].items():
-            log(k + " to " + v)
-            text = text.replace(k, v)
-        file.write(text)
+        self.log("Placing lists...")
+        for list_data in config["place_list"]:
+            self.place_list(*list_data.get("args", []), **list_data.get("kwargs", {}))
 
-    log("Done!")
+        self.log("Setting current year to the footer...")
+        self.soup.find("p", id="year").string = str(date.today().year)
 
+        self.log("Writting formatted pattern to index.html...")
+        with open(f"{self.buildDir}/index.html", "w") as file:
+            text = str(self.soup)
+            # text = soup.prettify()
+            self.log("Replacing elements...")
+            for k, v in config["replace"].items():
+                self.log(k + " to " + v)
+                text = text.replace(k, v)
+            file.write(text)
 
-def autobuild(buildDir, clean, verbose, debug, server):
-    change_handler = PatternMatchingEventHandler(["*"], None, False, True)
+        self.log("Done!")
 
-    def on_event(event):
-        if verbose:
-            print("Detected changes! Rebuilding...")
-        build(buildDir, clean, verbose, debug)
+    def autobuild(self):
+        change_handler = PatternMatchingEventHandler(["*"], None, False, True)
 
-    change_handler.on_created = on_event
-    change_handler.on_moved = on_event
-    change_handler.on_deleted = on_event
-    change_handler.on_modified = on_event
+        def on_event(event):
+            self.log("Detected changes! Rebuilding...")
+            try:
+                self.build()
+            except Error as e:
+                self.log(f"Error {e} when update")
 
-    observer = Observer()
-    observer.schedule(change_handler, "./source/", recursive=True)
+        change_handler.on_created = on_event
+        change_handler.on_moved = on_event
+        change_handler.on_deleted = on_event
+        change_handler.on_modified = on_event
 
-    build(buildDir, clean, verbose, debug)
+        observer = Observer()
+        observer.schedule(change_handler, "./source/", recursive=True)
 
-    observer.start()
-    httpd = None
-    try:
-        if server:
+        self.build()
 
-            class Handler(http.server.SimpleHTTPRequestHandler):
-                def __init__(self, *args, **kwargs):
-                    super().__init__(*args, directory=buildDir, **kwargs)
+        observer.start()
+        httpd = None
+        try:
+            if self.server:
+                bd = self.buildDir
 
-            httpd = socketserver.TCPServer(("", 8000), Handler)
-            print("Starting server on localhost:8000...")
-            server = httpd
-            httpd.serve_forever()
-        else:
-            while True:
-                time.sleep(1)
-    except KeyboardInterrupt:
-        observer.stop()
-        observer.join()
-        if httpd:
-            print("Stopping the server...")
-            httpd.server_close()
+                class Handler(http.server.SimpleHTTPRequestHandler):
+                    def __init__(self, *args, **kwargs):
+                        super().__init__(*args, directory=bd, **kwargs)
+
+                httpd = socketserver.TCPServer(("", 8000), Handler)
+                self.log("Starting server on localhost:8000...")
+                server = httpd
+                httpd.serve_forever()
+            else:
+                while True:
+                    time.sleep(1)
+        except KeyboardInterrupt:
+            observer.stop()
+            observer.join()
+            if httpd:
+                self.log("Stopping the server...")
+                httpd.server_close()
 
 
 def main():
     args = init()
     if args.server:
         args.auto = True
+    builder = Builder(args.output, args.clean, args.verbose, args.debug, args.server)
     if args.auto:
-        autobuild(args.output, args.clean, args.verbose, args.debug, args.server)
+        builder.autobuild()
     else:
-        build(args.output, args.clean, args.verbose, args.debug)
+        builder.build()
 
 
 if __name__ == "__main__":
