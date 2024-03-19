@@ -39,24 +39,26 @@ header {
   color: var(--orange) !important;
 }
 
-a:hover,
-.music-entry-image:hover {
-  color: var(--orange);
+a:hover, #header-scroll-down:hover {
+  color: var(--orange) !important;
 }
 
-.profile-entry:hover {
-  text-decoration: none;
+.music-entry-image:hover {
+  border-color: var(--orange) !important;
 }
 
 .about-icon {
   font-size: 150%;
 }
 
-
-#bio {
+.indent {
   text-indent: 20px;
 }
 
 .project .card {
   background-color: rgba(0, 0, 0, .4);
+}
+
+.profile-entry {
+  text-decoration: none !important;
 }
