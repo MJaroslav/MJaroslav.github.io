@@ -18,7 +18,7 @@
     "@AVATAR@": "https://github.com/MJaroslav.png",
     "@LOCATION@": "Saint-Petersburg",
     "@GENDER@": "male",
-    "@LANGS@": "RU + <i ```tooltip('In learning')```>EN</i>"
+    "@LANGS@": "RU + <i ```tooltip('In learning')``` style=\"text-decoration: underline dotted; text-underline-offset: 0.2em;\">EN</i>"
   },
   "place_list": [
     {

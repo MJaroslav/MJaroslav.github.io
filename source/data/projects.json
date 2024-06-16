@@ -6,8 +6,9 @@
   },
   {
     "name": "moe-counter-remade",
-    "desc": "My FastAPI driven rewrite of ```gh('journey-ad/Moe-counter')```. Currently not hosted.",
+    "desc": "My FastAPI driven rewrite of ```gh('journey-ad/Moe-counter')```. Thanks to ```gh(\"Aizistral\")``` for hosting on him site.",
     "src": "https://github.com/MJaroslav/moe-counter-remade",
+    "url": "https://counter.aizistral.com/",
     "badges": "```join(' ', thing(*get('python')), thing(*get('fastapi')), stars('MJaroslav', 'moe-counter-remade'))```"
   },
   {

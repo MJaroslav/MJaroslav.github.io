@@ -177,7 +177,7 @@ class Builder(object):
             self.log("Detected changes! Rebuilding...")
             try:
                 self.build()
-            except Error as e:
+            except Exception as e:
                 self.log(f"Error {e} when update")
 
         change_handler.on_created = on_event
@@ -199,11 +199,18 @@ class Builder(object):
                 class Handler(http.server.SimpleHTTPRequestHandler):
                     def __init__(self, *args, **kwargs):
                         super().__init__(*args, directory=bd, **kwargs)
+                    
+                    def send_my_headers(self):
+                        self.send_header("Cache-Control", "no-cache, no-store, must-revalidate")
+                        self.send_header("Pragma", "no-cache")
+                        self.send_header("Expires", "0")
 
-                httpd = socketserver.TCPServer(("", 8000), Handler)
                 self.log("Starting server on localhost:8000...")
-                server = httpd
-                httpd.serve_forever()
+                http.server.test(HandlerClass=Handler)
+                # httpd = socketserver.TCPServer(("", 8000), Handler)
+                
+                # server = httpd
+                # httpd.serve_forever()
             else:
                 while True:
                     time.sleep(1)
